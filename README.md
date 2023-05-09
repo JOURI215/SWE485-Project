@@ -2,7 +2,7 @@
 AI Project about Stroke Prediction
 
 Group Members :
-Jouri Alanazi
+- Jouri Alanazi
 - Renad Alsubaie
 - Monerah Alsubaie
 
