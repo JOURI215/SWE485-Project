@@ -2,11 +2,12 @@
 AI Project about Stroke Prediction
 
 Group Members :
-- Jouri Alanazi
+- Jouri Alanazi (Leader)
 - Renad Alsubaie
 - Monerah Alsubaie
 
-Supervised By : Dr. Manal Binkhonain
+Supervised By :
+- Dr. Manal Binkhonain
 
 Refrences:
 [1] Fedesoriano (2021) Stroke prediction dataset, Kaggle. Available at: https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset?datasetId=1120859&amp;searchQuery=decision (Accessed: 10 May 2023). 
