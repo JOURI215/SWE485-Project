@@ -1,4 +1,4 @@
-# SWE485-Project
+# SWE485-Project-G4
 AI Project about Stroke Prediction
 
 Group Members :
