@@ -1,0 +1,61 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score, davies_bouldin_score
+from sklearn.metrics.cluster import contingency_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+data = pd.read_csv('/content/Stroke Prediction Dataset.csv')
+data = pd.concat([data, pd.get_dummies(data['gender'], prefix='gender')], axis=1)
+data = data.drop(['gender'], axis=1) # Remove the original 'gender' column
+data = pd.concat([data, pd.get_dummies(data['ever_married'], prefix='ever_married')], axis=1)
+data = data.drop(['ever_married'], axis=1) # Remove the original 'ever_married' column
+data = pd.concat([data, pd.get_dummies(data['work_type'], prefix='work_type')], axis=1)
+data = data.drop(['work_type'], axis=1) # Remove the original 'work_type' column
+data = pd.concat([data, pd.get_dummies(data['Residence_type'], prefix='residence_type')], axis=1)
+data = data.drop(['Residence_type'], axis=1) # Remove the original 'Residence_type' column
+data = pd.concat([data, pd.get_dummies(data['smoking_status'], prefix='smoking_status')], axis=1)
+data = data.drop(['smoking_status'], axis=1) # Remove the original 'smoking_status' column
+data = data.dropna() 
+# Drop the ID column as it is not useful for clustering
+data.drop('id', axis=1, inplace=True)
+
+# Normalize the data
+data = (data - data.mean()) / data.std()
+
+# Define a list of K values to try
+k_values = [2, 3, 4]
+
+# Create a figure to plot the results
+fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(18, 12))
+
+# Run K-means clustering for each K value and plot the results
+for i, k in enumerate(k_values):
+    # Create a KMeans object with the current K value
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    
+    # Fit the model to the data
+    kmeans.fit(data)
+    
+    # Compute evaluation metrics
+    sil_score = silhouette_score(data, kmeans.labels_)
+    db_score = davies_bouldin_score(data, kmeans.labels_)
+    wcss = kmeans.inertia_
+    
+    # Compute contingency matrix forBCubed precision and recall
+    c_matrix = contingency_matrix(data['stroke'], kmeans.labels_)
+    precision = c_matrix.max(axis=0).sum() / c_matrix.sum()
+    recall = c_matrix.max(axis=1).sum() / c_matrix.sum()
+    
+    # Print the evaluation metrics for the current K value
+    print(f"K={k}: Silhouette score={sil_score:.3f},  WCSS={wcss:.3f}, Precision={precision:.3f}, Recall={recall:.3f}")
+    
+    # Plot the results for the current K value
+    row = i // 3
+    col = i % 3
+    sns.scatterplot(data=data, x='age', y='avg_glucose_level', hue=kmeans.labels_, ax=axs[row, col])
+    axs[row, col].set_title(f"K={k}")
+
+plt.tight_layout()
+plt.show()
