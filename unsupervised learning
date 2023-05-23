@@ -59,3 +59,33 @@ for i, k in enumerate(k_values):
 
 plt.tight_layout()
 plt.show()
+
+
+
+
+#‏k= 2 shilhouette score =0.171
+‏ k= 3shilhouette score =0.151
+‏ k= 4 shilhouette score =0.166
+‏ k= 2 WCSS =92015.957
+‏ k= 3 WCSS =84994.184
+‏ k= 4 WCSS =79029.915
+‏ k= 2 precision =0.957
+‏ k= 3 precision =0.957
+‏ k= 4 precision =0.957
+‏ k= 2 Recall =0.670
+‏ k= 3 Recall =0.416
+‏ k= 4 Recall =0.337
+
+
+
+The best choice for clustering based on the given results is k=2 because:
+
+1. Silhouette score: The silhouette score for k=2 is higher than that of k=3 and k=4. The silhouette score measures how well the data points are separated into clusters. A higher silhouette score indicates better separation between clusters. Therefore, the higher silhouette score for k=2 indicates that the clustering results are more compact and well-separated for k=2.
+
+2. Within-cluster sum of squares (WCSS): The WCSS decreases as k increases, but the rate of decrease slows down after k=3. A lower WCSS indicates that the data points are closer to their respective centroids. Therefore, the lower WCSS for k=2 suggests that the data points are more tightly clustered around their respective centroids for k=2.
+
+3. Precision: The precision metric is the same for all values of k, indicating that there is no clear difference in the accuracy of the clustering results.
+
+4. Recall: The recall metric decreases as k increases, which suggests that the clustering results become less accurate as more clusters are added.
+
+Overall, the combination of a higher silhouette score and a lower WCSS for k=2 suggest that this value of k provides better clustering results than k=3 or k=4. Therefore, k=2 would be the most appropriate choice for this clustering task.
